@@ -3,6 +3,14 @@ src/.vs
 src/FinancialManager.Domain/bin
 src/FinancialManager.Domain/obj
 
-
 src/FinancialManager.Test/bin
 src/FinancialManager.Test/obj
+
+src/FinancialManager.Application/bin
+src/FinancialManager.Application/obj
+
+src/FinancialManager.Infra/bin
+src/FinancialManager.Infra/obj
+
+src/FinancialManager.API/bin
+src/FinancialManager.API/obj

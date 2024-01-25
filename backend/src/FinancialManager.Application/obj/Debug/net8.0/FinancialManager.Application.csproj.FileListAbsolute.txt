@@ -4,3 +4,13 @@ C:\Users\Felipe\Desktop\projetos\Financial-Manager\backend\src\FinancialManager.
 C:\Users\Felipe\Desktop\projetos\Financial-Manager\backend\src\FinancialManager.Application\obj\Debug\net8.0\FinancialManager.Application.AssemblyInfo.cs
 C:\Users\Felipe\Desktop\projetos\Financial-Manager\backend\src\FinancialManager.Application\obj\Debug\net8.0\FinancialManager.Application.csproj.CoreCompileInputs.cache
 C:\Users\Felipe\Desktop\projetos\Financial-Manager\backend\src\FinancialManager.Application\obj\Debug\net8.0\FinancialManager.Application.sourcelink.json
+C:\Users\Felipe\Desktop\projetos\Financial-Manager\backend\src\FinancialManager.Application\bin\Debug\net8.0\FinancialManager.Application.deps.json
+C:\Users\Felipe\Desktop\projetos\Financial-Manager\backend\src\FinancialManager.Application\bin\Debug\net8.0\FinancialManager.Application.dll
+C:\Users\Felipe\Desktop\projetos\Financial-Manager\backend\src\FinancialManager.Application\bin\Debug\net8.0\FinancialManager.Application.pdb
+C:\Users\Felipe\Desktop\projetos\Financial-Manager\backend\src\FinancialManager.Application\bin\Debug\net8.0\FinancialManager.Domain.dll
+C:\Users\Felipe\Desktop\projetos\Financial-Manager\backend\src\FinancialManager.Application\bin\Debug\net8.0\FinancialManager.Domain.pdb
+C:\Users\Felipe\Desktop\projetos\Financial-Manager\backend\src\FinancialManager.Application\obj\Debug\net8.0\FinancialManager.Application.csproj.CopyComplete
+C:\Users\Felipe\Desktop\projetos\Financial-Manager\backend\src\FinancialManager.Application\obj\Debug\net8.0\FinancialManager.Application.dll
+C:\Users\Felipe\Desktop\projetos\Financial-Manager\backend\src\FinancialManager.Application\obj\Debug\net8.0\refint\FinancialManager.Application.dll
+C:\Users\Felipe\Desktop\projetos\Financial-Manager\backend\src\FinancialManager.Application\obj\Debug\net8.0\FinancialManager.Application.pdb
+C:\Users\Felipe\Desktop\projetos\Financial-Manager\backend\src\FinancialManager.Application\obj\Debug\net8.0\ref\FinancialManager.Application.dll
