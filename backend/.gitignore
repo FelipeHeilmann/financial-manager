@@ -1,0 +1,8 @@
+src/.vs
+
+src/FinancialManager.Domain/bin
+src/FinancialManager.Domain/obj
+
+
+src/FinancialManager.Test/bin
+src/FinancialManager.Test/obj
