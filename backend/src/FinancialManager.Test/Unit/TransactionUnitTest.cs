@@ -1,8 +1,6 @@
-﻿using FinancialManager.Domain.Installment.Entity;
-using FinancialManager.Domain.Transaction.Entity;
-using FinancialManager.Domain.Transaction.Enum;
+﻿using FinancialManager.Domain.Entity;
+using FinancialManager.Domain.Enum;
 using Xunit;
-
 
 namespace FinancialManager.Test.Unit
 {
@@ -16,11 +14,11 @@ namespace FinancialManager.Test.Unit
             var type = TransactionType.Deposit;
             var amount = 250.00;
             var name = "Felipe";
-            var description = "parcela 2 do fone";
+            var description = "Para comprar o Fone";
             var transaction = Transaction.Create(name, amount, today, type, description);
 
-            Assert.Equal(transaction.Amount, 250.00);
-            Assert.Equal(transaction.Type, TransactionType.Deposit);
+            Assert.Equal(250.00, transaction.Amount);
+            Assert.Equal(TransactionType.Deposit, transaction.Type);
         }
 
         [Fact]
@@ -30,15 +28,15 @@ namespace FinancialManager.Test.Unit
             var type = TransactionType.Credit;
             var amount = 620.00;
             var name = "Felipe";
-            var description = "Teclado Novo";
+            var description = "Para comprar teclado Novo";
             var transaction = Transaction.Create(name, amount, today, type, description);
 
-            Assert.Equal(transaction.Amount, 620.00);
-            Assert.Equal(transaction.Type, TransactionType.Credit);
+            Assert.Equal(620.00, transaction.Amount);
+            Assert.Equal(TransactionType.Credit, transaction.Type);
         }
 
         [Fact]           
-        public void Should_Create_A_Credit_Transaction_And_Installment()
+        public void Should_Create_A_Credit_Transaction_And_Add_One_Installment()
         {
             var today = new DateTime();
             var type = TransactionType.Credit;
@@ -48,8 +46,8 @@ namespace FinancialManager.Test.Unit
             var transaction = Transaction.Create(name, amount, today, type, description);
             var transactionId = transaction.Id;
 
-            Assert.Equal(transaction.Amount, 620.00);
-            Assert.Equal(transaction.Type, TransactionType.Credit);
+            Assert.Equal(620.00, transaction.Amount);
+            Assert.Equal(TransactionType.Credit, transaction.Type);
 
             var installmentAmount = 200.00;
             var installmentDate = DateTime.Now.AddDays(1);
@@ -57,7 +55,7 @@ namespace FinancialManager.Test.Unit
 
             transaction.AddInstallmalent(installment);
 
-            Assert.Equal(transaction.GetRemainingAmountToPay(), 420);
+            Assert.Equal(420, transaction.GetRemainingAmountToPay());
         }
     }
 }

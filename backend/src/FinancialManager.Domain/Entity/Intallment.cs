@@ -1,4 +1,4 @@
-﻿namespace FinancialManager.Domain.Installment.Entity
+﻿namespace FinancialManager.Domain.Entity
 {
     public class Installment
     {

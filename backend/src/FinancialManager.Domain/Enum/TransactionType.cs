@@ -1,4 +1,4 @@
-﻿namespace FinancialManager.Domain.Transaction.Enum
+﻿namespace FinancialManager.Domain.Enum
 {
     public enum TransactionType
     {

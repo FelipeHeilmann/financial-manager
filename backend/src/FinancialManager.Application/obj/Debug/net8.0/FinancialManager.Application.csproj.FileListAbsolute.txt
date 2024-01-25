@@ -1,0 +1,6 @@
+C:\Users\Felipe\Desktop\projetos\Financial-Manager\backend\src\FinancialManager.Application\obj\Debug\net8.0\FinancialManager.Application.csproj.AssemblyReference.cache
+C:\Users\Felipe\Desktop\projetos\Financial-Manager\backend\src\FinancialManager.Application\obj\Debug\net8.0\FinancialManager.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Felipe\Desktop\projetos\Financial-Manager\backend\src\FinancialManager.Application\obj\Debug\net8.0\FinancialManager.Application.AssemblyInfoInputs.cache
+C:\Users\Felipe\Desktop\projetos\Financial-Manager\backend\src\FinancialManager.Application\obj\Debug\net8.0\FinancialManager.Application.AssemblyInfo.cs
+C:\Users\Felipe\Desktop\projetos\Financial-Manager\backend\src\FinancialManager.Application\obj\Debug\net8.0\FinancialManager.Application.csproj.CoreCompileInputs.cache
+C:\Users\Felipe\Desktop\projetos\Financial-Manager\backend\src\FinancialManager.Application\obj\Debug\net8.0\FinancialManager.Application.sourcelink.json
