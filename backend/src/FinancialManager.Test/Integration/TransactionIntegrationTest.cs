@@ -23,7 +23,7 @@ namespace FinancialManager.Test.Integration
         [Fact]
         public async void Should_Create_Debit_Transaction_And_Save()
         {
-            var request = new CreateTransactionModel(250.00, DateTime.Now, 1, "Teclado Novo", "Felipe");
+            var request = new CreateTransactionModel() { Amount = 250.00, Date = DateTime.Now, Type = 1, Description = "Teclado Novo", Author = "Felipe" };
             var command = new CreateTransactionCommand(request);
 
             var handler = new CreateTransactionCommandHandler(_transactionRepositoryMock.Object, _unitOfWorkMock.Object);
@@ -36,7 +36,7 @@ namespace FinancialManager.Test.Integration
         [Fact]
         public async void Should_Create_Debit_Transaction_And_Throw_Execption()
         {
-            var request = new CreateTransactionModel(250.00, DateTime.Now, 3, "Teclado Novo", "Felipe");
+            var request = new CreateTransactionModel() { Amount = 250.00, Date = DateTime.Now, Type = 3, Description = "Teclado Novo", Author = "Felipe" };
             var command = new CreateTransactionCommand(request);
 
             var handler = new CreateTransactionCommandHandler(_transactionRepositoryMock.Object, _unitOfWorkMock.Object);

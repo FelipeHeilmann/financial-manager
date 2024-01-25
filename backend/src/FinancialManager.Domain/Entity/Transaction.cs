@@ -1,5 +1,7 @@
 ﻿using FinancialManager.Domain.Entity;
 using FinancialManager.Domain.Enum;
+using FinancialManager.Domain.Abstraction;
+using FinancialManager.Domain.Exception;
 
 namespace FinancialManager.Domain.Entity
 {
@@ -29,9 +31,11 @@ namespace FinancialManager.Domain.Entity
             return new Transaction(Guid.NewGuid(), amount, author, date, type, description);
         }
 
-        public void AddInstallmalent(Installment installment)
+        public Result AddInstallmalent(Installment installment)
         {
+            if (Type == TransactionType.Deposit) return Result.Failure(TransactionErrors.TransactionDoesNotAcceptInstallment);
             Installments.Add(installment);
+            return Result.Success();
         }
         
         public double GetRemainingAmountToPay()

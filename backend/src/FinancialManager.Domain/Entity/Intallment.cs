@@ -5,9 +5,9 @@
         public Guid Id { get; private set; }
         public double Amount { get; private set; }
         public DateTime Date { get; private set; }
-        public Guid? TransactionId { get; private set; }
+        public Guid TransactionId { get; private set; }
 
-        public Installment(Guid id, double amount, DateTime date, Guid? transactionId = null)
+        public Installment(Guid id, double amount, DateTime date, Guid transactionId)
         {
             Id = id;
             Amount = amount;
@@ -15,7 +15,7 @@
             TransactionId = transactionId;
         }
 
-        public static Installment Create(double amount, DateTime date, Guid? transactionId = null)
+        public static Installment Create(double amount, DateTime date, Guid transactionId)
         {
             return new Installment(Guid.NewGuid(), amount, date, transactionId);
         }
