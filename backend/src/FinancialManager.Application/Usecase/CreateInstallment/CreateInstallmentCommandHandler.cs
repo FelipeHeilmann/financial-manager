@@ -20,7 +20,7 @@ namespace FinancialManager.Application.Usecase.CreateInstallment
 
         public async Task<Result<Guid>> Handle(CreateInstallmentCommand command, CancellationToken cancellationToken)
         {
-            var transaction = await _transactionRepository.GetByIdAsync(command.request.TransactionId, cancellationToken);
+            var transaction = await _transactionRepository.GetByIdAsync(command.request.TransactionId, cancellationToken, "Installments");
 
             if (transaction == null)
             {

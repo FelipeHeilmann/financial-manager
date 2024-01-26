@@ -8,6 +8,16 @@ namespace FinancialManager.Infra.Repository
     {
         public TransactionRepository(ApplicationContext context)
             : base(context)
-        { }
+        {   
+        }
+
+        public override void Update(Transaction entity, CancellationToken cancellationToken)
+        {
+            _context.Transaction.Update(entity);
+            foreach (var installment in entity.Installments)
+            {
+                _context.Installment.Add(installment);
+            }
+        }
     }
 }

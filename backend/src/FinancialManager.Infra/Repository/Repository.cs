@@ -1,12 +1,14 @@
-﻿using FinancialManager.Domain.Repository;
+﻿using FinancialManager.Domain.Entity;
+using FinancialManager.Domain.Repository;
 using FinancialManager.Infra.Context;
 using Microsoft.EntityFrameworkCore;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace FinancialManager.Infra.Repository
 {
     public abstract class Repository<TEntity> : IGenericRepostory<TEntity> where TEntity : class
     {
-        private readonly ApplicationContext _context;
+        protected readonly ApplicationContext _context;
 
         protected Repository(ApplicationContext context)
         {
@@ -15,13 +17,19 @@ namespace FinancialManager.Infra.Repository
 
         public async Task<List<TEntity>> GetAllAsync(CancellationToken cancellationToken, string? includes = null)
         {
-            return await _context.Set<TEntity>().Include(includes ?? string.Empty).ToListAsync(cancellationToken);
+            var query = _context.Set<TEntity>().AsQueryable();
+
+            if (!string.IsNullOrEmpty(includes))
+            {
+                query = query.Include(includes);
+            }
+
+            return await query.ToListAsync(cancellationToken);
         }
 
         public async Task<TEntity?> GetByIdAsync(Guid id, CancellationToken cancellationToken, string? includes = null)
         {
-            var entityId = typeof(TEntity).GetProperty("Id");
-            return await _context.Set<TEntity>().Include(includes ?? string.Empty).FirstAsync(entity => (Guid)entityId.GetValue(entity) == id);
+            return await _context.Set<TEntity>().FindAsync(id, cancellationToken);
         }
 
         public IQueryable<TEntity> GetQueryable(CancellationToken cancellationToken)
@@ -34,7 +42,7 @@ namespace FinancialManager.Infra.Repository
             _context.Add(entity);
         }
 
-        public void Update(TEntity entity, CancellationToken cancellationToken)
+        public virtual void Update(TEntity entity, CancellationToken cancellationToken)
         {
             _context.Update(entity);
         }

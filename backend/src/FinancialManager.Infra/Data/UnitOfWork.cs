@@ -14,7 +14,7 @@ namespace FinancialManager.Infra.Data
 
         public async Task<int> Commit(CancellationToken cancellationToken = default)
         {
-           return  await _context.SaveChangesAsync(cancellationToken);
+           return await _context.SaveChangesAsync(cancellationToken);
         }
     }
 }
