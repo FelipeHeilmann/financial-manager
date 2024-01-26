@@ -24,6 +24,7 @@ namespace FinancialManager.Infra.DI
         public static IServiceCollection AddPersistence(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped<ITransactionRepository, TransactionRepository>();
+            services.AddScoped<IInstallmentRepository, InstallmentRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             return services;
