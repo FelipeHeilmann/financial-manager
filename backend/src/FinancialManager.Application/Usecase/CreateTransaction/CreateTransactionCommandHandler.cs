@@ -25,7 +25,7 @@ namespace FinancialManager.Application.Usecase.CreateTransaction
             var transactionType = command.request.Type == 1 ? TransactionType.Credit : TransactionType.Deposit;
             var transaction = Transaction.Create(command.request.Author, command.request.Amount, command.request.Date, transactionType, command.request.Description);
 
-            await _transactionRepository.SaveAsync(transaction, cancellationToken);
+             _transactionRepository.Save(transaction, cancellationToken);
 
             await _unitOfWork.SaveChangesAsync(cancellationToken);
 

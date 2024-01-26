@@ -33,7 +33,7 @@ namespace FinancialManager.Application.Usecase.CreateInstallment
 
             if (result.IsFailure) return Result.Failure<Guid>(result.GetError());
 
-            await _transactionRepository.UpdateAsync(transaction, cancellationToken);
+            _transactionRepository.Update(transaction, cancellationToken);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
 
             return Result.Success(transaction.Id);

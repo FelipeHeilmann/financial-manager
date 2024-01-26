@@ -35,8 +35,8 @@ namespace FinancialManager.Test.Integration
 
             var transactionId = transactinResult.GetValue();
 
-            _transactionRepositoryMock.Setup(repo => repo.GetByIdAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()))
-                  .ReturnsAsync(new Transaction(transactionId, request.Amount, request.Author, request.Date, TransactionType.Credit, request.Description));
+            _transactionRepositoryMock.Setup(repo => repo.GetByIdAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>(), null))
+                  .ReturnsAsync(new Transaction(transactionId, request.Amount, request.Author, request.Date, TransactionType.Credit, request.Description, DateTime.Now));
 
             var installmentRequest = new CreateInstallmentModel() { Amount = 300, Date = DateTime.Now.AddDays(2), TransactionId = transactionId };
 
@@ -79,8 +79,8 @@ namespace FinancialManager.Test.Integration
         { 
             var transactionId = Guid.NewGuid();
 
-            _transactionRepositoryMock.Setup(repo => repo.GetByIdAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()))
-                  .ReturnsAsync(new Transaction(transactionId, 250.00, "Felipe", DateTime.Now, TransactionType.Deposit, "Teclado novo"));
+            _transactionRepositoryMock.Setup(repo => repo.GetByIdAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>(), null))
+                  .ReturnsAsync(new Transaction(transactionId, 250.00, "Felipe", DateTime.Now, TransactionType.Deposit, "Teclado novo", DateTime.Now));
 
             var installmentRequest = new CreateInstallmentModel() { Amount = 300, Date = DateTime.Now.AddDays(2), TransactionId = transactionId };
 

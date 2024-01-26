@@ -1,11 +1,12 @@
 ﻿namespace FinancialManager.Domain.Repository
 {
-    public interface IGenericRepostory<T>
+    public interface IGenericRepostory<TEntity>
     {
-        Task<List<T>> GetAllAsync(CancellationToken cancellationToken);
-        Task<T?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
-        Task SaveAsync(T entity, CancellationToken cancellationToken);
-        Task UpdateAsync(T entity, CancellationToken cancellationToken);
-        Task DeleteAsync(Guid id, CancellationToken cancellationToken);
+        Task<List<TEntity>> GetAllAsync(CancellationToken cancellationToken, string? includes = null);
+        Task<TEntity?> GetByIdAsync(Guid id, CancellationToken cancellationToken, string? includes = null);
+        IQueryable<TEntity> GetQueryable (CancellationToken cancellationToken);
+        void Save(TEntity entity, CancellationToken cancellationToken);
+        void Update(TEntity entity, CancellationToken cancellationToken);
+        void Delete(TEntity entity, CancellationToken cancellationToken);
     }
 }

@@ -13,9 +13,10 @@ namespace FinancialManager.Domain.Entity
         public double Amount { get; private set; }
         public TransactionType Type { get; private set; }
         public string Description { get; private set; }
+        public DateTime CreatedAt { get; private set; }
         public ICollection<Installment> Installments { get; private set; }
 
-        public Transaction(Guid id, double amount, string author, DateTime date, TransactionType type, string description)
+        public Transaction(Guid id, double amount, string author, DateTime date, TransactionType type, string description, DateTime createdAt)
         {
             Id = id;
             Author = author;
@@ -24,11 +25,12 @@ namespace FinancialManager.Domain.Entity
             Description = description;
             Amount = amount;
             Installments = new List<Installment>();
+            CreatedAt = createdAt;
         }
 
         public static Transaction Create(string author, double amount, DateTime date, TransactionType type, string description)
         {
-            return new Transaction(Guid.NewGuid(), amount, author, date, type, description);
+            return new Transaction(Guid.NewGuid(), amount, author, date, type, description, DateTime.Now);
         }
 
         public Result AddInstallmalent(Installment installment)
