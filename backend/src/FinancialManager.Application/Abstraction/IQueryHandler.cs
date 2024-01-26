@@ -1,7 +1,10 @@
-﻿namespace FinancialManager.Application.Abstraction
+﻿using FinancialManager.Domain.Abstraction;
+using MediatR;
+
+namespace FinancialManager.Application.Abstraction
 {
-    public interface IQueryHandler<in TQuery, TResponse> where TQuery : IQuery<TResponse>
+    public interface IQueryHandler<TQuery, TResponse> : IRequestHandler<TQuery, Result<TResponse>> where TQuery : IQuery<TResponse>
     {
-        Task<TResponse> Handle(TQuery query, CancellationToken cancellationToken);
+        Task<Result<TResponse>> Handle(TQuery query, CancellationToken cancellationToken);
     }
 }
