@@ -1,4 +1,6 @@
 using FinancialManager.Infra.DI;
+using MediatR;
+
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,8 +12,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddInfra(builder.Configuration);
-builder.Services.AddRepositories(builder.Configuration);
+builder.Services.AddConnections(builder.Configuration);
+builder.Services.AddPersistence(builder.Configuration);
+
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(FinancialManager.Application.AssemblyReference.Assembly));
 
 var app = builder.Build();
 

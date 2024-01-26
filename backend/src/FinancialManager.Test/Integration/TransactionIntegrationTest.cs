@@ -28,7 +28,7 @@ namespace FinancialManager.Test.Integration
 
             var handler = new CreateTransactionCommandHandler(_transactionRepositoryMock.Object, _unitOfWorkMock.Object);
 
-            Result<Guid> result = await handler.Handle(command, default);
+            Result result = await handler.Handle(command, default);
 
             Assert.True(result.IsSuccess);
         }
@@ -41,7 +41,7 @@ namespace FinancialManager.Test.Integration
 
             var handler = new CreateTransactionCommandHandler(_transactionRepositoryMock.Object, _unitOfWorkMock.Object);
 
-            Result<Guid> result = await handler.Handle(command, default);
+            Result result = await handler.Handle(command, default);
 
             Assert.False(result.IsSuccess);
             Assert.Equal(TransactionErrors.InvalidType, result.GetError());

@@ -4,5 +4,5 @@ using FinancialManager.Domain.Abstraction;
 
 namespace FinancialManager.Application.Usecase.CreateTransaction
 {
-    public sealed record CreateTransactionCommand(CreateTransactionModel request) : ICommand<Result<Guid>>;
+    public sealed record CreateTransactionCommand(CreateTransactionModel request) : ICommand<Guid>;
 }

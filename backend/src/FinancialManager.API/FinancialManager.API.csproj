@@ -7,14 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MediatR" Version="12.2.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\FinancialManager.Application\FinancialManager.Application.csproj" />
     <ProjectReference Include="..\FinancialManager.Infra\FinancialManager.Infra.csproj" />
   </ItemGroup>
 

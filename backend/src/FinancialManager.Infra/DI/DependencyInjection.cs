@@ -1,5 +1,7 @@
-﻿using FinancialManager.Domain.Repository;
+﻿using FinancialManager.Application.Data;
+using FinancialManager.Domain.Repository;
 using FinancialManager.Infra.Context;
+using FinancialManager.Infra.Data;
 using FinancialManager.Infra.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -9,7 +11,7 @@ namespace FinancialManager.Infra.DI
 {
     public static class DependencyInjection
     {
-        public static IServiceCollection AddInfra(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddConnections(this IServiceCollection services, IConfiguration configuration)
         {
             var connectionString = configuration.GetConnectionString("Default");
 
@@ -19,9 +21,10 @@ namespace FinancialManager.Infra.DI
             return services;
         }
 
-        public static IServiceCollection AddRepositories(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddPersistence(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped<ITransactionRepository, TransactionRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             return services;
         }

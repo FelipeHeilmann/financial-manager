@@ -14,6 +14,7 @@ namespace FinancialManager.Infra.Config
             builder.Property(t => t.Author).HasColumnName("author");
             builder.Property(t => t.Description).HasColumnName("description");
             builder.Property(t => t.Date).HasColumnName("date");
+            builder.Property(t=> t.Type).HasColumnName("type");
             builder.Property(t => t.CreatedAt).HasColumnName("created_at");
 
             builder.HasMany(t => t.Installments)

@@ -1,17 +1,16 @@
-﻿namespace FinancialManager.Application.Abstraction
+﻿using FinancialManager.Domain.Abstraction;
+using MediatR;
+
+namespace FinancialManager.Application.Abstraction
 {
-    public interface ICommand : IBaseCommand
+    public interface ICommand : IRequest<Result>
     {
 
     }
 
-    public interface ICommand<TResponse> : IBaseCommand
+    public interface ICommand<TResponse> : IRequest<Result<TResponse>>
     {
 
     }
 
-    public interface IBaseCommand
-    {
-
-    }
 }

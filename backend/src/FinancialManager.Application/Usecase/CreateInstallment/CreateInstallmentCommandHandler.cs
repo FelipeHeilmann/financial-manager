@@ -7,7 +7,7 @@ using FinancialManager.Domain.Repository;
 
 namespace FinancialManager.Application.Usecase.CreateInstallment
 {
-    public sealed class CreateInstallmentCommandHandler : ICommandHandler<CreateInstallmentCommand, Result<Guid>>
+    public sealed class CreateInstallmentCommandHandler : ICommandHandler<CreateInstallmentCommand, Guid>
     {
         private readonly ITransactionRepository _transactionRepository;
         private readonly IUnitOfWork _unitOfWork;
@@ -22,7 +22,7 @@ namespace FinancialManager.Application.Usecase.CreateInstallment
         {
             var transaction = await _transactionRepository.GetByIdAsync(command.request.TransactionId, cancellationToken);
 
-            if(transaction == null)
+            if (transaction == null)
             {
                 return Result.Failure<Guid>(TransactionErrors.NotFound);
             }
@@ -34,7 +34,7 @@ namespace FinancialManager.Application.Usecase.CreateInstallment
             if (result.IsFailure) return Result.Failure<Guid>(result.GetError());
 
             _transactionRepository.Update(transaction, cancellationToken);
-            await _unitOfWork.SaveChangesAsync(cancellationToken);
+            await _unitOfWork.Commit(cancellationToken);
 
             return Result.Success(transaction.Id);
         }

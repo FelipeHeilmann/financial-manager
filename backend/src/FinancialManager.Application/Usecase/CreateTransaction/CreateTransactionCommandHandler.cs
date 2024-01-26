@@ -8,7 +8,7 @@ using FinancialManager.Domain.Exception;
 
 namespace FinancialManager.Application.Usecase.CreateTransaction
 {
-    public sealed class CreateTransactionCommandHandler : ICommandHandler<CreateTransactionCommand, Result<Guid>>
+    public sealed class CreateTransactionCommandHandler : ICommandHandler<CreateTransactionCommand, Guid>
     {
         private readonly ITransactionRepository _transactionRepository;
         private readonly IUnitOfWork _unitOfWork;
@@ -27,7 +27,7 @@ namespace FinancialManager.Application.Usecase.CreateTransaction
 
              _transactionRepository.Save(transaction, cancellationToken);
 
-            await _unitOfWork.SaveChangesAsync(cancellationToken);
+            await _unitOfWork.Commit(cancellationToken);
 
             return Result.Success(transaction.Id);
         }

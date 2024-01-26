@@ -4,5 +4,5 @@ using FinancialManager.Domain.Abstraction;
 
 namespace FinancialManager.Application.Usecase.CreateInstallment
 {
-    public sealed record CreateInstallmentCommand(CreateInstallmentModel request) : ICommand<Result<Guid>>;
+    public sealed record CreateInstallmentCommand(CreateInstallmentModel request) : ICommand<Guid>;
 }
