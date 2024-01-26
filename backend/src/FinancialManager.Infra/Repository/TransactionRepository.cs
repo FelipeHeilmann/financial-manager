@@ -7,9 +7,7 @@ namespace FinancialManager.Infra.Repository
     public class TransactionRepository : Repository<Transaction>, ITransactionRepository
     {
         public TransactionRepository(ApplicationContext context)
-            : base(context)
-        {   
-        }
+            : base(context) {}
 
         public override void Update(Transaction entity, CancellationToken cancellationToken)
         {

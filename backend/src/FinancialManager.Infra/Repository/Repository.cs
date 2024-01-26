@@ -29,7 +29,14 @@ namespace FinancialManager.Infra.Repository
 
         public async Task<TEntity?> GetByIdAsync(Guid id, CancellationToken cancellationToken, string? includes = null)
         {
-            return await _context.Set<TEntity>().FindAsync(id, cancellationToken);
+            var query = _context.Set<TEntity>().AsQueryable();
+
+            if (!string.IsNullOrEmpty(includes))
+            {
+                query = query.Include(includes);
+            }
+
+            return await query.FirstOrDefaultAsync(e => EF.Property<Guid>(e, "Id") == id, cancellationToken);
         }
 
         public IQueryable<TEntity> GetQueryable(CancellationToken cancellationToken)
