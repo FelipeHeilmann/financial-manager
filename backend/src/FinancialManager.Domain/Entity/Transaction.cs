@@ -3,52 +3,51 @@ using FinancialManager.Domain.Enum;
 using FinancialManager.Domain.Abstraction;
 using FinancialManager.Domain.Exception;
 
-namespace FinancialManager.Domain.Entity
+namespace FinancialManager.Domain.Entity;
+public class Transaction
 {
-    public class Transaction
+    public Guid Id { get; private set; }
+    public string Author { get; private set; }
+    public DateTime Date { get; private set; }
+    public double Amount { get; private set; }
+    public TransactionType Type { get; private set; }
+    public string Description { get; private set; }
+    public DateTime CreatedAt { get; private set; }
+    public ICollection<Installment> Installments { get; private set; }
+
+    public Transaction(Guid id, double amount, string author, DateTime date, TransactionType type, string description, DateTime createdAt)
     {
-        public Guid Id { get; private set; }
-        public string Author { get; private set; }
-        public DateTime Date { get; private set; }
-        public double Amount { get; private set; }
-        public TransactionType Type { get; private set; }
-        public string Description { get; private set; }
-        public DateTime CreatedAt { get; private set; }
-        public ICollection<Installment> Installments { get; private set; }
+        Id = id;
+        Author = author;
+        Date = date;
+        Type = type;
+        Description = description;
+        Amount = amount;
+        Installments = new List<Installment>();
+        CreatedAt = createdAt;
+    }
 
-        public Transaction(Guid id, double amount, string author, DateTime date, TransactionType type, string description, DateTime createdAt)
-        {
-            Id = id;
-            Author = author;
-            Date = date;
-            Type = type;
-            Description = description;
-            Amount = amount;
-            Installments = new List<Installment>();
-            CreatedAt = createdAt;
-        }
+    public static Transaction Create(string author, double amount, DateTime date, TransactionType type, string description)
+    {
+        return new Transaction(Guid.NewGuid(), amount, author, date, type, description, DateTime.Now);
+    }
 
-        public static Transaction Create(string author, double amount, DateTime date, TransactionType type, string description)
-        {
-            return new Transaction(Guid.NewGuid(), amount, author, date, type, description, DateTime.Now);
-        }
-
-        public Result AddInstallmalent(Installment installment)
-        {
-            if (Type == TransactionType.Deposit) return Result.Failure(TransactionErrors.TransactionDoesNotAcceptInstallment);
-            Installments.Add(installment);
-            return Result.Success();
-        }
+    public Result AddInstallmalent(Installment installment)
+    {
+        if (Type == TransactionType.Deposit) return Result.Failure(TransactionErrors.TransactionDoesNotAcceptInstallment);
+        Installments.Add(installment);
+        return Result.Success();
+    }
         
-        public double GetRemainingAmountToPay()
+    public double GetRemainingAmountToPay()
+    {
+        var total = Amount;
+        foreach (var installment in Installments)
         {
-            var total = Amount;
-            foreach (var installment in Installments)
-            {
-                total -= installment.Amount;
-            }
-
-            return total;
+            total -= installment.Amount;
         }
+
+        return total;
     }
 }
+

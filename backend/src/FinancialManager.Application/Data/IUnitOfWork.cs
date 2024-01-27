@@ -1,8 +1,6 @@
 ﻿
-namespace FinancialManager.Application.Data
+namespace FinancialManager.Application.Data;
+public interface IUnitOfWork
 {
-    public interface IUnitOfWork
-    {
-        Task<int> Commit(CancellationToken cancellationToken = default);
-    }
+    Task<int> Commit(CancellationToken cancellationToken = default);
 }

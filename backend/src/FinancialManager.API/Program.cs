@@ -1,7 +1,4 @@
 using FinancialManager.Infra.DI;
-using MediatR;
-
-
 
 var builder = WebApplication.CreateBuilder(args);
 

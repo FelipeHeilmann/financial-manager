@@ -7,27 +7,25 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace FinancialManager.Infra.DI
+namespace FinancialManager.Infra.DI;
+public static class DependencyInjection
 {
-    public static class DependencyInjection
+    public static IServiceCollection AddConnections(this IServiceCollection services, IConfiguration configuration)
     {
-        public static IServiceCollection AddConnections(this IServiceCollection services, IConfiguration configuration)
-        {
-            var connectionString = configuration.GetConnectionString("Default");
+        var connectionString = configuration.GetConnectionString("Default");
 
-            services.AddDbContext<ApplicationContext>(options =>
-                options.UseSqlServer(connectionString));
+        services.AddDbContext<ApplicationContext>(options =>
+            options.UseSqlServer(connectionString));
 
-            return services;
-        }
+        return services;
+    }
 
-        public static IServiceCollection AddPersistence(this IServiceCollection services, IConfiguration configuration)
-        {
-            services.AddScoped<ITransactionRepository, TransactionRepository>();
-            services.AddScoped<IInstallmentRepository, InstallmentRepository>();
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
+    public static IServiceCollection AddPersistence(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddScoped<ITransactionRepository, TransactionRepository>();
+        services.AddScoped<IInstallmentRepository, InstallmentRepository>();
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-            return services;
-        }
+        return services;
     }
 }

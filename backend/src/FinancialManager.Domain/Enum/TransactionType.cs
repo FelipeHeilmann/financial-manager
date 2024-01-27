@@ -1,8 +1,7 @@
-﻿namespace FinancialManager.Domain.Enum
+﻿namespace FinancialManager.Domain.Enum;
+public enum TransactionType
 {
-    public enum TransactionType
-    {
-        Credit = 1,
-        Deposit = 2,
-    }
+    Credit = 1,
+    Deposit = 2,
 }
+

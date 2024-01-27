@@ -1,17 +1,16 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace FinancialManager.API.Controllers
-{
-    [ApiController]
-    public abstract class ApiController : ControllerBase
-    {
-        protected readonly ISender Sender;
+namespace FinancialManager.API.Controllers;
 
-        protected ApiController(ISender sender)
-        {
-            Sender = sender;
-        }
+[ApiController]
+public abstract class ApiController : ControllerBase
+{
+    protected readonly ISender Sender;
+
+    protected ApiController(ISender sender)
+    {
+        Sender = sender;
     }
 }
+
