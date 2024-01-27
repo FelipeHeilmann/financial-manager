@@ -1,9 +1,9 @@
 ﻿using FinancialManager.API.Extension;
 using FinancialManager.Application.Model;
 using FinancialManager.Application.Usecase.Installment.CreateInstallment;
+using FinancialManager.Application.Usecase.Installment.DeleteInstallment;
 using FinancialManager.Application.Usecase.Installment.GetInstallmentById;
 using FinancialManager.Application.Usecase.Installment.GetInstallments;
-using FinancialManager.Domain.Entity;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -38,6 +38,15 @@ public class InstallmentController : ApiController
         var result = await Sender.Send(command);
 
         return result.IsSuccess ? Results.Ok(result.GetValue()) : result.ToProblemDetail();
+    }
+    [HttpDelete("{id}")]
+    public async Task<IResult> DeleteInstallment(Guid id, CancellationToken cancellationToken)
+    {
+        var command = new DeleteInstallmentCommand(id);
+
+        var result = await Sender.Send(command, cancellationToken);
+
+        return result.IsSuccess ? Results.NoContent() : result.ToProblemDetail();
     }
 }
 
