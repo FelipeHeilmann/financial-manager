@@ -1,12 +1,11 @@
-﻿using FinancialManager.Application.Model;
+﻿using FinancialManager.API.Extension;
+using FinancialManager.Application.Model;
 using FinancialManager.Application.Usecase.CreateInstallment;
 using FinancialManager.Application.Usecase.GetInstallmentById;
 using FinancialManager.Application.Usecase.GetInstallments;
 using FinancialManager.Domain.Entity;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 namespace FinancialManager.API.Controllers
 {
@@ -18,28 +17,28 @@ namespace FinancialManager.API.Controllers
         public InstallmentController(ISender sender) : base(sender) { }
 
         [HttpGet]
-        public async Task<ActionResult<List<Installment>>> GetInstallments(CancellationToken cancellationToken)
+        public async Task<IResult> GetInstallments(CancellationToken cancellationToken)
         {
             var query = new GetInstallmentsQuery();
             var result = await Sender.Send(query);
-            return Ok(result.GetValue());
+            return Results.Ok(result.GetValue());
         }
         [HttpGet("{id}")]
-        public async Task<ActionResult<Installment>> GetInstallmentById(Guid id, CancellationToken cancellationToken)
+        public async Task<IResult> GetInstallmentById(Guid id, CancellationToken cancellationToken)
         {
             var query = new GetInstallmentByIdQuery(id);
             var result = await Sender.Send(query);
 
-            return result.IsSuccess ? Ok(result.GetValue()) : NotFound(result.GetError());
+            return result.IsSuccess ? Results.Ok(result.GetValue()) : result.ToProblemDetail();
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreateInstallment([FromBody] CreateInstallmentModel request)
+        public async Task<IResult> CreateInstallment([FromBody] CreateInstallmentModel request)
         {
             var command = new CreateInstallmentCommand(request);
             var result = await Sender.Send(command);
 
-            return result.IsSuccess ? Ok(result) : BadRequest(result.GetError());
+            return result.IsSuccess ? Results.Ok(result.GetValue()) : result.ToProblemDetail();
         }
     }
 }
