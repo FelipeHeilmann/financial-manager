@@ -17,12 +17,12 @@ public class TransactionController : ApiController
     public TransactionController(ISender sender) : base(sender) { }
 
     [HttpGet]
-    public async Task<ActionResult<List<Transaction>>> GetTransactions()
+    public async Task<IResult> GetTransactions()
     {
         var query = new GetTransactionsQuery();
         var result = await Sender.Send(query);
 
-        return Ok(result.GetValue());
+        return Results.Ok(result.GetValue());
     }
     [HttpGet("{id}")]
     public async Task<IResult> GetTransactionById(Guid id, CancellationToken cancellationToken)

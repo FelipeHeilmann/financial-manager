@@ -25,6 +25,8 @@ public sealed class CreateInstallmentCommandHandler : ICommandHandler<CreateInst
             return Result.Failure<Guid>(TransactionErrors.NotFound);
         }
 
+        if (command.request.Amount <= 0) return Result.Failure<Guid>(InstallmentErrors.InvalidAmount);
+
         var installment = Domain.Entity.Installment.Create(command.request.Amount, command.request.Date, transaction.Id);
 
         Result result = transaction.AddInstallmalent(installment);
