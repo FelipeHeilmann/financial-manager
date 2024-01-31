@@ -15,7 +15,7 @@ export default function InstallmentComponent({ installments, reloadData }: { ins
                 <AccordionItem value="item-1">
                     <AccordionTrigger className="justify-end"></AccordionTrigger>
                     <AccordionContent className="">
-                        <ScrollArea className="w-full">
+                        <ScrollArea className="w-full h-80">
                             <div className="space-y-2">
                                 {
                                     installments && installments.map((installment, index) =>

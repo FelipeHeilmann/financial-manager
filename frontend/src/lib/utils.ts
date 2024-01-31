@@ -43,3 +43,8 @@ export type TInstallment = {
   date: string,
   createdAt: string
 }
+
+export const ErrorsDictionary = {
+  ["Installment.invalid.amount"]: "Valor da parcela maior que o disponível para pagar",
+  ["Amount.Less.Equal.Zero"]: "O Valor da parcela deve ser maior que zero"
+}

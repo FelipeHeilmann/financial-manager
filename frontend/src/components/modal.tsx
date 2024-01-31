@@ -7,15 +7,18 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
-import { TCreateInstallment, axiosInstance, installmentZodSchema } from "@/lib/utils"
+import { ErrorsDictionary, TCreateInstallment, axiosInstance, installmentZodSchema } from "@/lib/utils"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { Input } from "./ui/input"
 import { Button } from "./ui/button"
 import { Trash } from "lucide-react"
+import { useToast } from "@/components/ui/use-toast"
 
 
 export function InstallmentModal({ transactionId, reloadData }: { transactionId: string, reloadData: (toReloadData: boolean) => void }) {
+
+    const { toast } = useToast()
 
     const { register, handleSubmit } = useForm<TCreateInstallment>({
         resolver: zodResolver(installmentZodSchema)
@@ -29,8 +32,22 @@ export function InstallmentModal({ transactionId, reloadData }: { transactionId:
         }
 
         await axiosInstance.post('/api/installments', input)
-        await reloadData(true)
-        document.getElementById('closeDialog')?.click()
+            .then(async () => {
+                await reloadData(true)
+                document.getElementById('closeDialog')?.click()
+            })
+            .catch(({ response }) => {
+                for (const err of response.data.error) {
+                    const erroCode = err.code as keyof typeof ErrorsDictionary
+                    toast({
+                        variant: "destructive",
+                        title: "Não foi possível completar a ação",
+                        description: ErrorsDictionary[erroCode],
+                    })
+                }
+            })
+
+
     }
     return (
         <Dialog>
