@@ -16,6 +16,14 @@ builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(FinancialMan
 
 var app = builder.Build();
 
+app.UseCors(opt => 
+    {
+        opt.AllowAnyOrigin();
+        opt.AllowAnyMethod();
+        opt.AllowAnyHeader();
+    }
+);
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -26,8 +34,6 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
-
-app.UseCors(option => option.AllowAnyOrigin());
 
 app.MapControllers();
 
