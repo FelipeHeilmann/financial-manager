@@ -35,7 +35,7 @@ public class Transaction
     public Result AddInstallmalent(Installment installment)
     {
         if (Type == TransactionType.Deposit) return Result.Failure(TransactionErrors.TransactionDoesNotAcceptInstallment);
-        if (GetRemainingAmountToPay() < Amount) return Result.Failure(InstallmentErrors.InvalidInstallment);
+        if (GetRemainingAmountToPay() > Amount) return Result.Failure(InstallmentErrors.InvalidInstallment);
         Installments.Add(installment);
         return Result.Success();
     }
