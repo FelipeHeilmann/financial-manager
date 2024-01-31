@@ -5,8 +5,8 @@ import {
     AccordionItem,
     AccordionTrigger,
 } from "@/components/ui/accordion"
-import { ScrollArea } from "@/components/ui/scroll-area"
 import { DeleteInstallmentModal } from "./modal"
+import { ScrollArea } from "./ui/scroll-area"
 
 export default function InstallmentComponent({ installments, reloadData }: { installments: TInstallment[], reloadData: (toReloadData: boolean) => void }) {
     return (
@@ -14,8 +14,8 @@ export default function InstallmentComponent({ installments, reloadData }: { ins
             <Accordion type="single" collapsible>
                 <AccordionItem value="item-1">
                     <AccordionTrigger className="justify-end"></AccordionTrigger>
-                    <AccordionContent className="">
-                        <ScrollArea className="w-full h-80">
+                    <AccordionContent className="h-80">
+                        <ScrollArea className="w-full h-72">
                             <div className="space-y-2">
                                 {
                                     installments && installments.map((installment, index) =>

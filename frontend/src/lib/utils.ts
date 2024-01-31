@@ -24,6 +24,15 @@ export const installmentZodSchema = z.object({
   date: z.any()
 })
 
+export const transactionZodSchema = z.object({
+  amount: z.coerce.number(),
+  date: z.string(),
+  author: z.string(),
+  type: z.number(),
+  description: z.string()
+})
+
+export type TCreateTransaction = z.infer<typeof transactionZodSchema>
 export type TCreateInstallment = z.infer<typeof installmentZodSchema>
 
 export type TTransaction = {
@@ -31,6 +40,7 @@ export type TTransaction = {
   amount: number,
   date: string,
   createdAt: string,
+  description: string
   author: string,
   type: number,
   installments: TInstallment[]
