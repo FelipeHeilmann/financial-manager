@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FinancialManager.API.Controllers;
 
-[Route("api/tansactions")]
+[Route("api/transactions")]
 [ApiController]
 public class TransactionController : ApiController
 {
