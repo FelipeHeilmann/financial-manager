@@ -46,5 +46,11 @@ export type TInstallment = {
 
 export const ErrorsDictionary = {
   ["Installment.invalid.amount"]: "Valor da parcela maior que o disponível para pagar",
-  ["Amount.Less.Equal.Zero"]: "O Valor da parcela deve ser maior que zero"
+  ["Installment.Amount.Less.Equal.Zero"]: "O Valor da parcela deve ser maior que zero",
+  ["Installment.Not.Found"]: "Parcela não encontrada",
+
+  ["Cannot.Add.Installment"]: "Transação de débito não pode ter parcela",
+  ["Invalid.Transaction.Type"]: "Tipo de transação inválido",
+  ["Transaction.Not.Found"]: "Transação não encontrada",
+
 }

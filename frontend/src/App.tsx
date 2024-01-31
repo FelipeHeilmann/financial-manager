@@ -6,7 +6,7 @@ import {
 } from "@/components/ui/card"
 import { useEffect, useState } from "react"
 import { TTransaction, axiosInstance, timestampToUser } from "./lib/utils"
-import { InstallmentModal } from "./components/modal"
+import { DeleteTransactionModal, InstallmentModal } from "./components/modal"
 import InstallmentComponent from "./components/installment-component"
 import { Toaster } from "./components/ui/toaster"
 
@@ -46,7 +46,10 @@ export default function App() {
           {
             transactions.map((transaction) =>
               <Card key={transaction.id} className="w-[25%] bg-slate-900 bg-opacity-70 border-0 text-white">
-                <CardHeader className="w-full flex flex-row justify-between items-center">
+                <div className="w-full p-0 flex justify-end">
+                  <DeleteTransactionModal reloadData={reloadData} transactionId={transaction.id} />
+                </div>
+                <CardHeader className="w-full pt-0 flex flex-row justify-between items-center">
                   <CardTitle>
                     {transaction.type === 1 ? "Crédito" : "Débido"}
                   </CardTitle>

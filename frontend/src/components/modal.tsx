@@ -12,12 +12,11 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { Input } from "./ui/input"
 import { Button } from "./ui/button"
-import { Trash } from "lucide-react"
+import { Trash, X } from "lucide-react"
 import { useToast } from "@/components/ui/use-toast"
 
 
 export function InstallmentModal({ transactionId, reloadData }: { transactionId: string, reloadData: (toReloadData: boolean) => void }) {
-
     const { toast } = useToast()
 
     const { register, handleSubmit } = useForm<TCreateInstallment>({
@@ -82,10 +81,23 @@ export function InstallmentModal({ transactionId, reloadData }: { transactionId:
 }
 
 export function DeleteInstallmentModal({ installmentId, reloadData }: { installmentId: string, reloadData: (toReloadData: boolean) => void }) {
+    const { toast } = useToast()
+
     async function handleDeleteInstallment() {
-        await axiosInstance.delete(`/api/installments/${installmentId}`)
-        await reloadData(true)
-        document.getElementById('closeDialog')?.click()
+        await axiosInstance.delete(`/api/installments/${installmentId}`).then(async () => {
+            await reloadData(true)
+            document.getElementById('closeDialog')?.click()
+        })
+            .catch(({ response }) => {
+                for (const err of response.data.error) {
+                    const erroCode = err.code as keyof typeof ErrorsDictionary
+                    toast({
+                        variant: "destructive",
+                        title: "Não foi possível completar a ação",
+                        description: ErrorsDictionary[erroCode],
+                    })
+                }
+            })
     }
     return (
         <Dialog>
@@ -101,6 +113,50 @@ export function DeleteInstallmentModal({ installmentId, reloadData }: { installm
                     </DialogTitle>
                 </DialogHeader>
                 <h2 className="text-white text-xl">Deseja mesmo apagar essa parcela?</h2>
+                <DialogFooter>
+                    <DialogClose asChild>
+                        <button className="text-white font-normal border p-1 rounded-md transition-all hover:bg-slate-50 hover:text-black">Cancelar</button>
+                    </DialogClose>
+                    <button type="submit" onClick={handleDeleteInstallment} className="text-white font-normal border p-1 rounded-md transition-all hover:bg-slate-50 hover:text-black">Apagar</button>
+                </DialogFooter>
+            </DialogContent>
+        </Dialog >
+    )
+}
+
+export function DeleteTransactionModal({ transactionId, reloadData }: { transactionId: string, reloadData: (toReloadData: boolean) => void }) {
+    const { toast } = useToast()
+
+    async function handleDeleteInstallment() {
+        await axiosInstance.delete(`/api/transactions/${transactionId}`).then(async () => {
+            await reloadData(true)
+            document.getElementById('closeDialog')?.click()
+        })
+            .catch(({ response }) => {
+                for (const err of response.data.error) {
+                    const erroCode = err.code as keyof typeof ErrorsDictionary
+                    toast({
+                        variant: "destructive",
+                        title: "Não foi possível completar a ação",
+                        description: ErrorsDictionary[erroCode],
+                    })
+                }
+            })
+    }
+    return (
+        <Dialog>
+            <DialogTrigger className="h-7" asChild>
+                <Button className="p-0 hover:bg-transparent bg-transparent">
+                    <X height={25} />
+                </Button>
+            </DialogTrigger>
+            <DialogContent className="bg-slate-900 border-0">
+                <DialogHeader>
+                    <DialogTitle className="text-xl text-white">
+                        Apagar parcela
+                    </DialogTitle>
+                </DialogHeader>
+                <h2 className="text-white text-xl">Deseja mesmo apagar essa transação?</h2>
                 <DialogFooter>
                     <DialogClose asChild>
                         <button className="text-white font-normal border p-1 rounded-md transition-all hover:bg-slate-50 hover:text-black">Cancelar</button>
