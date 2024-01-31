@@ -7,19 +7,14 @@ import {
 import { useEffect, useState } from "react"
 import { TTransaction, axiosInstance, timestampToUser } from "./lib/utils"
 import { InstallmentModal } from "./components/modal"
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion"
-import { ScrollArea } from "@/components/ui/scroll-area"
+import InstallmentComponent from "./components/installment-component"
+
 
 export default function App() {
   const [total, setTotal] = useState(0)
   const [transactions, setTransactions] = useState<TTransaction[]>([])
 
-  const fetchData = async () => {
+  async function fetchData() {
     const { data } = await axiosInstance.get("/api/transactions") as { data: TTransaction[] }
 
     let totalTransaction = 0
@@ -30,6 +25,11 @@ export default function App() {
 
     setTotal(totalTransaction)
     setTransactions(data)
+  }
+
+  async function reloadData(toReloadData: boolean) {
+    if (!toReloadData) return
+    await fetchData()
   }
 
   useEffect(() => {
@@ -51,11 +51,11 @@ export default function App() {
                 {
                   transaction.type === 1 &&
                   (
-                    <InstallmentModal transactionId={transaction.id} />
+                    <InstallmentModal reloadData={reloadData} transactionId={transaction.id} />
                   )
                 }
               </CardHeader>
-              <CardContent className="space-y-3">
+              <CardContent className="space-y-2 pb-0">
                 <div className="space-y-2">
                   <div className="flex justify-between">
                     <p className="text-lg font-semibold">{transaction.author}</p>
@@ -66,26 +66,7 @@ export default function App() {
                     <p className="text-lg font-semibold">Restante a pagar: R$ {transaction.amount - transaction.installments.reduce((acc, cur) => acc + cur.amount, 0)}</p>
                   </div>
                 </div>
-                <Accordion type="single" collapsible>
-                  <AccordionItem value="item-1">
-                    <AccordionTrigger className="justify-end"></AccordionTrigger>
-                    <AccordionContent>
-                      <ScrollArea className="h-72 w-full">
-                        <div className="space-y-2">
-                          {
-                            transaction.installments.map((installment, index) =>
-                              <div key={installment.id} className="w-full bg-slate-800 p-2 rounded-lg space-y-2">
-                                <h2 className="font-bold text-xl">Parcela {index + 1}</h2>
-                                <p className="text-lg font-semibold">{installment.amount.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</p>
-                                <p className="text-lg font-semibold">{timestampToUser(installment.date)}</p>
-                              </div>
-                            )
-                          }
-                        </div>
-                      </ScrollArea>
-                    </AccordionContent>
-                  </AccordionItem>
-                </Accordion>
+                <InstallmentComponent reloadData={reloadData} installments={transaction.installments} />
               </CardContent>
             </Card>
           )
